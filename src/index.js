@@ -1,23 +1,23 @@
 module.exports = function getZerosCount(number, base) {
-	var num = number;
-	var bas = base;
-	var count=num;
+	let num = number;
+	let bas = base;
+	let count = num;
 
-
-    function f( num,  i) 
-      { return num ? num/i + Math.floor(f(num/i, i)) : 0; }
+    function recurs(num,  i) 
+      { return num ? num / i + Math.floor(recurs(num / i, i)) : 0; }
  
     
-    for (var i=2; i*i<=bas; i++) {
-        var t=0;
-        while (bas%i==0) {t++; bas/=i;}
-        if (t) count = Math.floor(Math.min(count, Math.floor(f(num,i))/t));
+    for (let i = 2; i * i <= bas; i++) {
+        let temp = 0;
+        while (bas % i == 0) {
+          temp++;
+          bas /= i;
+        }
+
+        if (temp) count = Math.floor(Math.min(count, Math.floor(recurs(num, i)) / temp));
     }
 
-    if (bas>1) count = Math.min(count, Math.floor(f(num,bas)));
+    if (bas > 1) count = Math.min(count, Math.floor(recurs(num, bas)));
     return count;
-
 }
-
-
  
